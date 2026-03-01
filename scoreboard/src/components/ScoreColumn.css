@@ -1,0 +1,240 @@
+.score-column {
+  flex: 1;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 2px;
+  min-width: 0;
+}
+
+/* ── Blocks area (scaled relative to max score) ── */
+.score-column__blocks-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 0;
+  padding: 4px 0;
+}
+
+.score-column__blocks-track {
+  width: 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.score-column__spacer {
+  pointer-events: none;
+}
+
+.score-column__block {
+  width: 100%;
+  min-height: 3px;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: flex 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: blockAppear 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.score-column__block--base {
+  border-style: dashed;
+}
+
+@keyframes blockAppear {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* ── Absolute score ── */
+.score-column__score {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  text-shadow: 0 0 16px var(--glow-mid);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── Minus button ── */
+.score-column__minus {
+  width: 40px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.score-column__minus:hover {
+  background: var(--glow-dim);
+  box-shadow: 0 0 10px var(--glow-dim);
+}
+
+.score-column__minus:active {
+  transform: scale(0.9);
+}
+
+/* ── Hexagonal photo button ── */
+.hex-button {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: transform 0.15s;
+}
+
+.hex-button:hover {
+  transform: scale(1.06);
+}
+
+.hex-button:active {
+  transform: scale(0.95);
+}
+
+.hex-button__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hex-button__border {
+  transition: stroke-width 0.2s;
+}
+
+.hex-button:hover .hex-button__border {
+  stroke-width: 5;
+}
+
+.hex-button__plus {
+  position: absolute;
+  bottom: 10px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  background: var(--glow);
+  color: #000;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px var(--glow);
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ── Name at bottom ── */
+.score-column__name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px var(--glow-mid);
+  flex-shrink: 0;
+  text-align: center;
+  padding-bottom: 4px;
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 1400px) {
+  .hex-button {
+    width: 160px;
+    height: 160px;
+  }
+  .score-column__blocks-track {
+    width: 50px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .hex-button {
+    width: 130px;
+    height: 130px;
+  }
+  .score-column__blocks-track {
+    width: 42px;
+  }
+  .score-column__score {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .score-column__name {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+  }
+  .score-column__score {
+    font-size: 1.1rem;
+  }
+  .hex-button {
+    width: 100px;
+    height: 100px;
+  }
+  .score-column__blocks-track {
+    width: 34px;
+  }
+  .hex-button__plus {
+    width: 24px;
+    height: 24px;
+    font-size: 0.85rem;
+    bottom: 6px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .score-column__name {
+    font-size: 0.55rem;
+  }
+  .score-column__score {
+    font-size: 0.9rem;
+  }
+  .hex-button {
+    width: 80px;
+    height: 80px;
+  }
+  .score-column__blocks-track {
+    width: 26px;
+    gap: 2px;
+  }
+  .hex-button__plus {
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+    bottom: 4px;
+    right: 6px;
+  }
+  .score-column__minus {
+    width: 30px;
+    height: 20px;
+    font-size: 0.8rem;
+  }
+}
