@@ -1,7 +1,15 @@
 import { memo, useMemo } from 'react'
 import './ScoreColumn.css'
 
-const ScoreColumn = memo(function ScoreColumn({ player, score, minScore, maxScore, onIncrement, onDecrement }) {
+const ScoreColumn = memo(function ScoreColumn({
+  player,
+  score,
+  minScore,
+  maxScore,
+  onIncrement,
+  onDecrement,
+  readOnlyMode,
+}) {
   const { name, color, img } = player
   const diffFromMin = score - minScore
 
@@ -68,6 +76,7 @@ const ScoreColumn = memo(function ScoreColumn({ player, score, minScore, maxScor
       <button
         className="score-column__minus"
         onClick={onDecrement}
+        disabled={readOnlyMode}
         style={{
           color,
           borderColor: color + '66',
@@ -77,7 +86,7 @@ const ScoreColumn = memo(function ScoreColumn({ player, score, minScore, maxScor
       </button>
 
       {/* Hexagonal photo button (increment) */}
-      <button className="hex-button" onClick={onIncrement}>
+      <button className="hex-button" onClick={onIncrement} disabled={readOnlyMode}>
         <svg viewBox="0 0 100 100" className="hex-button__svg">
           <defs>
             <clipPath id={`hex-clip-${name}`}>

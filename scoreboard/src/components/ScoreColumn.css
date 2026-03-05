@@ -95,6 +95,12 @@
   transform: scale(0.9);
 }
 
+.score-column__minus:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 /* ── Hexagonal photo button ── */
 .hex-button {
   position: relative;
@@ -114,6 +120,12 @@
 
 .hex-button:active {
   transform: scale(0.95);
+}
+
+.hex-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .hex-button__svg {

@@ -7,6 +7,38 @@
   overflow: hidden;
 }
 
+.app__error {
+  padding: 12px 24px;
+  background: rgba(255, 61, 0, 0.1);
+  border-bottom: 2px solid #ff3d00;
+  color: #ff3d00;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: slide-in 0.3s ease-out;
+}
+
+.app__readonly-banner {
+  padding: 10px 24px;
+  background: rgba(0, 229, 255, 0.08);
+  border-bottom: 1px solid #00e5ff55;
+  color: #00e5ff;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .scoreboard {
   flex: 1;
   display: flex;
