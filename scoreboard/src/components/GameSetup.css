@@ -59,6 +59,49 @@
   margin-bottom: 24px;
 }
 
+.game-setup__style-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.game-setup__style-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.game-setup__style-option:hover {
+  border-color: #00e5ff66;
+}
+
+.game-setup__style-option--active {
+  border-color: #00e5ff;
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.3);
+}
+
+.game-setup__style-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.game-setup__style-desc {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  color: #888;
+}
+
 .game-setup__btn {
   font-family: 'Orbitron', sans-serif;
   font-size: 0.9rem;

@@ -348,3 +348,104 @@
   color: #ccc;
   letter-spacing: 0.5px;
 }
+
+/* ── Quiz Night theme overrides ── */
+.header--quiznight .header__title {
+  font-family: 'Anton', sans-serif;
+  color: #F5B841;
+  text-shadow: none;
+  letter-spacing: 1px;
+}
+
+.header--quiznight .header__game-toggle,
+.header--quiznight .header__reset,
+.header--quiznight .header__delete,
+.header--quiznight .header__players-toggle {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: none;
+  border-color: #ffffff1f;
+  color: #C8CBD8;
+}
+
+.header--quiznight .header__game-toggle:hover,
+.header--quiznight .header__players-toggle:hover {
+  color: #5B9BF0;
+  border-color: #5B9BF066;
+  box-shadow: 0 0 8px rgba(91, 155, 240, 0.2);
+}
+
+.header--quiznight .header__reset:hover,
+.header--quiznight .header__delete:hover {
+  color: #E4572E;
+  border-color: #E4572E66;
+  box-shadow: 0 0 8px rgba(228, 87, 46, 0.2);
+}
+
+.header--quiznight .header__reset--warn,
+.header--quiznight .header__delete--warn {
+  color: #E4572E;
+  border-color: #E4572E;
+  box-shadow: 0 0 12px rgba(228, 87, 46, 0.4);
+}
+
+.header--quiznight .header__game-dropdown,
+.header--quiznight .header__checklist {
+  background: #1B2030;
+  border-color: #ffffff1f;
+}
+
+.header--quiznight .header__game-name,
+.header--quiznight .header__checklist-item span {
+  font-family: 'Archivo', sans-serif;
+  color: #F3EEE3;
+}
+
+.header--quiznight .header__game-id label,
+.header--quiznight .header__spectator-link label {
+  font-family: 'Archivo', sans-serif;
+}
+
+.header--quiznight .header__game-id-value {
+  font-family: 'Anton', sans-serif;
+  color: #F5B841;
+  background: rgba(245, 184, 65, 0.1);
+  border-color: #F5B84155;
+}
+
+.header--quiznight .header__game-id-value:hover {
+  background: rgba(245, 184, 65, 0.2);
+  border-color: #F5B84188;
+}
+
+.header--quiznight .header__spectator-link-value {
+  font-family: 'Archivo', sans-serif;
+  color: #5B9BF0;
+  background: rgba(91, 155, 240, 0.1);
+  border-color: #5B9BF055;
+}
+
+.header--quiznight .header__spectator-link-value:hover {
+  background: rgba(91, 155, 240, 0.2);
+}
+
+.header--quiznight .header__visibility {
+  color: #4FC978;
+  border-color: #4FC97866;
+}
+
+.header--quiznight .header__visibility--private {
+  color: #E4572E;
+  border-color: #E4572E66;
+}
+
+.header--quiznight .header__leave-btn {
+  font-family: 'Archivo', sans-serif;
+  color: #E4572E;
+  border-color: #E4572E66;
+}
+
+.header--quiznight .header__checklist-item input[type="checkbox"] {
+  accent-color: #F5B841;
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BOARD_STYLES } from '../data/themes'
 import './GameSetup.css'
 
 function formatTimestamp(ts) {
@@ -17,6 +18,7 @@ function GameSetup({
   const [gameId, setGameId] = useState('')
   const [gameName, setGameName] = useState('')
   const [isPublic, setIsPublic] = useState(true)
+  const [boardStyle, setBoardStyle] = useState(BOARD_STYLES[0].id)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
@@ -27,6 +29,7 @@ function GameSetup({
       await onStartGame({
         gameName: gameName.trim(),
         isPublic,
+        style: boardStyle,
       })
     } catch (err) {
       setError(`Failed to create game: ${err.message}`)
@@ -85,6 +88,21 @@ function GameSetup({
             />
             <span>Public game (shown on start page)</span>
           </label>
+          <div className="game-setup__style-picker">
+            {BOARD_STYLES.map((style) => (
+              <button
+                key={style.id}
+                type="button"
+                className={`game-setup__style-option ${
+                  boardStyle === style.id ? 'game-setup__style-option--active' : ''
+                }`}
+                onClick={() => setBoardStyle(style.id)}
+              >
+                <span className="game-setup__style-label">{style.label}</span>
+                <span className="game-setup__style-desc">{style.description}</span>
+              </button>
+            ))}
+          </div>
           <button
             className="game-setup__btn game-setup__btn--primary"
             onClick={handleCreateGame}

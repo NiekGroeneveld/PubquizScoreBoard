@@ -14,6 +14,7 @@ function Header({
   onLeaveGame,
   readOnlyMode,
   spectatorLink,
+  theme = 'hexagonal',
 }) {
   const [resetConfirmStep, setResetConfirmStep] = useState(0)
   const [deleteConfirmStep, setDeleteConfirmStep] = useState(0)
@@ -78,8 +79,11 @@ function Header({
     deleteConfirmStep === 0 ? 'Remove game' : deleteConfirmStep === 1 ? 'Sure?' : 'Delete now'
 
   return (
-    <header className="header">
-      <h1 className="header__title" style={{ color: titleColor, textShadow: `0 0 20px ${titleColor}` }}>
+    <header className={`header header--${theme}`}>
+      <h1
+        className="header__title"
+        style={theme === 'hexagonal' ? { color: titleColor, textShadow: `0 0 20px ${titleColor}` } : undefined}
+      >
         Boys Scoreboard
       </h1>
       <div className="header__controls">

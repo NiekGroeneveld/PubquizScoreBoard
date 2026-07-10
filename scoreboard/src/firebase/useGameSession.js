@@ -33,6 +33,7 @@ export function useGameSession(gameId) {
         setMetadata({
           name: data.name || 'Untitled game',
           isPublic: data.isPublic !== false,
+          style: data.style || 'hexagonal',
           createdAt: data.createdAt || 0,
           lastUpdated: data.lastUpdated || 0,
         })
@@ -132,7 +133,7 @@ export function useGameSession(gameId) {
 }
 
 export async function createNewGame(players, options = {}) {
-  const { name = 'Untitled game', isPublic = true } = options
+  const { name = 'Untitled game', isPublic = true, style = 'hexagonal' } = options
 
   const gamesRef = ref(database, 'games')
   const newGameRef = push(gamesRef)
@@ -148,6 +149,7 @@ export async function createNewGame(players, options = {}) {
   await set(newGameRef, {
     name: name.trim() || 'Untitled game',
     isPublic: Boolean(isPublic),
+    style,
     scores: initialScores,
     activePlayers: initialActivePlayers,
     createdAt: Date.now(),

@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import ScoreColumn from './components/ScoreColumn'
+import ScoreColumnQuizNight from './components/ScoreColumnQuizNight'
 import Header from './components/Header'
 import GameSetup from './components/GameSetup'
 import AdminPanel from './components/AdminPanel'
@@ -11,6 +12,7 @@ import {
 } from './firebase/useGameSession'
 import { usePlayers, addPlayer, deletePlayer, ensureDefaultPlayersSeeded } from './firebase/players'
 import { DEFAULT_PLAYERS } from './data/defaultPlayers'
+import { quiznightAccentFor } from './data/themes'
 import { ADMIN_TOKEN } from './config/admin'
 import './App.css'
 
@@ -147,6 +149,7 @@ function App() {
       gameId = null,
       gameName = '',
       isPublic = true,
+      style = 'hexagonal',
       forceReadOnly = false,
     } = payload || {}
 
@@ -158,7 +161,7 @@ function App() {
       return
     }
 
-    const newGameId = await createNewGame(players, { name: gameName, isPublic })
+    const newGameId = await createNewGame(players, { name: gameName, isPublic, style })
     setCurrentGameId(newGameId)
     setReadOnlyMode(false)
     await loadPublicGames()
@@ -217,8 +220,12 @@ function App() {
     )
   }
 
+  const boardStyle = metadata?.style || 'hexagonal'
+  const isQuizNight = boardStyle === 'quiznight'
+  const ScoreColumnComponent = isQuizNight ? ScoreColumnQuizNight : ScoreColumn
+
   return (
-    <div className="app">
+    <div className={`app app--${boardStyle}`}>
       <Header
         allPlayers={players}
         activePlayers={activePlayers}
@@ -232,6 +239,7 @@ function App() {
         onLeaveGame={handleLeaveGame}
         readOnlyMode={readOnlyMode}
         spectatorLink={spectatorLink}
+        theme={boardStyle}
       />
 
       {error && <div className="app__error">Connection error: {error}</div>}
@@ -240,13 +248,14 @@ function App() {
       )}
 
       <div className="scoreboard">
-        {displayedPlayers.map((player) => (
-          <ScoreColumn
+        {displayedPlayers.map((player, index) => (
+          <ScoreColumnComponent
             key={player.name}
             player={player}
             score={scores[player.name] || 0}
             minScore={minScore}
             maxScore={maxScore}
+            accentColor={isQuizNight ? quiznightAccentFor(index) : undefined}
             onIncrement={() => incrementScore(player.name)}
             onDecrement={() => decrementScore(player.name)}
             readOnlyMode={readOnlyMode}

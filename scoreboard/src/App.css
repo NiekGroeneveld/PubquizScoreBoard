@@ -3,8 +3,15 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(ellipse at 50% 0%, #0a0a1a 0%, #000 70%);
   overflow: hidden;
+}
+
+.app--hexagonal {
+  background: radial-gradient(ellipse at 50% 0%, #0a0a1a 0%, #000 70%);
+}
+
+.app--quiznight {
+  background: radial-gradient(1600px 1000px at 75% 12%, #171C2C 0%, #0D0F17 60%);
 }
 
 .app__error {
@@ -40,6 +47,20 @@
   font-family: 'Rajdhani', sans-serif;
   font-size: 0.9rem;
   text-align: center;
+}
+
+.app--quiznight .app__error {
+  background: rgba(228, 87, 46, 0.12);
+  border-bottom: 2px solid #E4572E;
+  color: #E4572E;
+  font-family: 'Archivo', sans-serif;
+}
+
+.app--quiznight .app__readonly-banner {
+  background: rgba(91, 155, 240, 0.1);
+  border-bottom: 1px solid #5B9BF055;
+  color: #5B9BF0;
+  font-family: 'Archivo', sans-serif;
 }
 
 @keyframes slide-in {
