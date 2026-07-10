@@ -2,33 +2,30 @@ import { useState, useCallback, useMemo, useEffect } from 'react'
 import ScoreColumn from './components/ScoreColumn'
 import Header from './components/Header'
 import GameSetup from './components/GameSetup'
+import AdminPanel from './components/AdminPanel'
 import {
   useGameSession,
   createNewGame,
   gameExists,
   listPublicGames,
 } from './firebase/useGameSession'
+import { usePlayers, addPlayer, deletePlayer, ensureDefaultPlayersSeeded } from './firebase/players'
+import { DEFAULT_PLAYERS } from './data/defaultPlayers'
+import { ADMIN_TOKEN } from './config/admin'
 import './App.css'
 
-import bartImg from './assets/Bart.png'
-import folkerImg from './assets/Folker.png'
-import ivanImg from './assets/Ivan.png'
-import leviImg from './assets/Levi.png'
-import mattiImg from './assets/Matti.png'
-import thijsImg from './assets/Thijs.png'
-import niekImg from './assets/Niek.png'
-
-const ALL_PLAYERS = [
-  { name: 'Bart', color: '#00aaff', img: bartImg },
-  { name: 'Folker', color: '#ffea00', img: folkerImg },
-  { name: 'Ivan', color: '#d500f9', img: ivanImg },
-  { name: 'Levi', color: '#00e5ff', img: leviImg },
-  { name: 'Matti', color: '#ff6d00', img: mattiImg },
-  { name: 'Niek', color: '#ff3d00', img: niekImg },
-  { name: 'Thijs', color: '#00e676', img: thijsImg },
-]
-
 function App() {
+  const { players, loading: playersLoading } = usePlayers()
+
+  const isAdminMode = useMemo(() => {
+    const params = new URLSearchParams(window.location.search)
+    return params.get('admin') === ADMIN_TOKEN
+  }, [])
+
+  useEffect(() => {
+    ensureDefaultPlayersSeeded(DEFAULT_PLAYERS)
+  }, [])
+
   const [currentGameId, setCurrentGameId] = useState(null)
   const [readOnlyMode, setReadOnlyMode] = useState(false)
   const [publicGames, setPublicGames] = useState([])
@@ -93,7 +90,7 @@ function App() {
       const initialScores = {}
       const initialActivePlayers = {}
 
-      ALL_PLAYERS.forEach((p) => {
+      players.forEach((p) => {
         initialScores[p.name] = 0
         initialActivePlayers[p.name] = true
       })
@@ -101,7 +98,7 @@ function App() {
       updateScores(initialScores)
       updateActivePlayers(initialActivePlayers)
     }
-  }, [currentGameId, isConnected, scores, updateScores, updateActivePlayers])
+  }, [currentGameId, isConnected, scores, players, updateScores, updateActivePlayers])
 
   useEffect(() => {
     const url = new URL(window.location.href)
@@ -124,8 +121,8 @@ function App() {
   }, [currentGameId, readOnlyMode])
 
   const displayedPlayers = useMemo(() => {
-    return ALL_PLAYERS.filter((p) => activePlayers[p.name])
-  }, [activePlayers])
+    return players.filter((p) => activePlayers[p.name])
+  }, [players, activePlayers])
 
   const activeScores = useMemo(() => {
     const selected = {}
@@ -161,11 +158,11 @@ function App() {
       return
     }
 
-    const newGameId = await createNewGame(ALL_PLAYERS, { name: gameName, isPublic })
+    const newGameId = await createNewGame(players, { name: gameName, isPublic })
     setCurrentGameId(newGameId)
     setReadOnlyMode(false)
     await loadPublicGames()
-  }, [loadPublicGames])
+  }, [loadPublicGames, players])
 
   const handleJoinPublicGame = useCallback(async (gameId) => {
     await handleStartGame({ gameId, forceReadOnly: false })
@@ -192,7 +189,22 @@ function App() {
     return url.toString()
   }, [currentGameId])
 
+  if (isAdminMode) {
+    return (
+      <AdminPanel
+        players={players}
+        loading={playersLoading}
+        onAddPlayer={addPlayer}
+        onDeletePlayer={deletePlayer}
+      />
+    )
+  }
+
   if (!currentGameId) {
+    if (playersLoading) {
+      return <div className="app__loading">Loading...</div>
+    }
+
     return (
       <GameSetup
         onStartGame={handleStartGame}
@@ -208,7 +220,7 @@ function App() {
   return (
     <div className="app">
       <Header
-        allPlayers={ALL_PLAYERS}
+        allPlayers={players}
         activePlayers={activePlayers}
         onTogglePlayer={togglePlayer}
         onReset={resetScores}

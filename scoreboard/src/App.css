@@ -18,6 +18,20 @@
   animation: slide-in 0.3s ease-out;
 }
 
+.app__loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at 50% 0%, #0a0a1a 0%, #000 70%);
+  color: #666;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
 .app__readonly-banner {
   padding: 10px 24px;
   background: rgba(0, 229, 255, 0.08);

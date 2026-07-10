@@ -109,16 +109,34 @@ const ScoreColumn = memo(function ScoreColumn({
             filter={`url(#glow-${name})`}
             className="hex-button__border"
           />
-          {/* Photo */}
-          <image
-            href={img}
-            x="5"
-            y="5"
-            width="90"
-            height="90"
-            clipPath={`url(#hex-clip-${name})`}
-            preserveAspectRatio="xMidYMid slice"
-          />
+          {/* Photo, or a first-letter placeholder when no photo is set */}
+          {img ? (
+            <image
+              href={img}
+              x="5"
+              y="5"
+              width="90"
+              height="90"
+              clipPath={`url(#hex-clip-${name})`}
+              preserveAspectRatio="xMidYMid slice"
+            />
+          ) : (
+            <g clipPath={`url(#hex-clip-${name})`}>
+              <rect x="5" y="5" width="90" height="90" fill={color} />
+              <text
+                x="50"
+                y="50"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontFamily="'Orbitron', sans-serif"
+                fontSize="42"
+                fontWeight="900"
+                fill="#0a0a0a"
+              >
+                {name.charAt(0).toUpperCase()}
+              </text>
+            </g>
+          )}
         </svg>
         <span className="hex-button__plus">＋</span>
       </button>
