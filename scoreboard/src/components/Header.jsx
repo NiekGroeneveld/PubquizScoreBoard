@@ -24,6 +24,7 @@ function Header({
   const [copiedSpectator, setCopiedSpectator] = useState(false)
 
   const titleColor = useMemo(() => {
+    if (allPlayers.length === 0) return '#00e5ff'
     const randomPlayer = allPlayers[Math.floor(Math.random() * allPlayers.length)]
     return randomPlayer.color
   }, [allPlayers])

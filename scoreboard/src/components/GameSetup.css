@@ -1,9 +1,11 @@
 .game-setup {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
+  height: 100vh;
+  padding: 40px 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .game-setup__container {
@@ -67,15 +69,16 @@
 
 .game-setup__style-option {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 14px;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 14px;
   background: rgba(0, 0, 0, 0.4);
   border: 2px solid #333;
   border-radius: 8px;
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;
+  overflow: hidden;
 }
 
 .game-setup__style-option:hover {
@@ -94,12 +97,18 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .game-setup__style-desc {
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .game-setup__btn {

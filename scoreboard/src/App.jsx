@@ -25,7 +25,9 @@ function App() {
   }, [])
 
   useEffect(() => {
-    ensureDefaultPlayersSeeded(DEFAULT_PLAYERS)
+    ensureDefaultPlayersSeeded(DEFAULT_PLAYERS).catch((err) => {
+      console.error('Could not seed default figures (check Firebase rules for /players and /meta):', err)
+    })
   }, [])
 
   const [currentGameId, setCurrentGameId] = useState(null)
